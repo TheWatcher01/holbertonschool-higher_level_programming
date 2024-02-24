@@ -1,0 +1,87 @@
+The 'say_my_name' module
+========================
+
+Using 'say_my_name'
+-------------------
+
+>>> say_my_name = __import__('3-say_my_name').say_my_name
+
+# Test case where both first_name and last_name are provided:
+>>> say_my_name("John", "Doe")
+My name is John Doe
+
+# Test case where only first_name is provided:
+>>> say_my_name("Bob")
+My name is Bob 
+
+# Test case where first_name is not a string:
+>>> say_my_name(12, "Doe")
+Traceback (most recent call last):
+...
+TypeError: first_name must be a string
+
+# Test case where last_name is not a string:
+>>> say_my_name("John", 23)
+Traceback (most recent call last):
+...
+TypeError: last_name must be a string
+
+# Test case where first_name is a string with spaces:
+>>> say_my_name("John ", "Doe")
+My name is John  Doe
+
+# Test case where first_name is a string with special characters:
+>>> say_my_name("John-", "Doe")
+My name is John- Doe
+
+# Test case where first_name is an empty string:
+>>> say_my_name("", "Doe")
+My name is  Doe
+
+# Test case where first_name is None:
+>>> say_my_name(None, "Doe")
+Traceback (most recent call last):
+...
+TypeError: first_name must be a string
+
+# Test case where last_name is None:
+>>> say_my_name("John", None)
+My name is John 
+
+# Test case where both first_name and last_name are None:
+>>> say_my_name(None, None)
+Traceback (most recent call last):
+...
+TypeError: first_name must be a string
+
+# Test case where first_name is a string with numbers:
+>>> say_my_name("John123", "Doe")
+My name is John123 Doe
+
+# Test case where first_name is a string with non-ASCII characters:
+>>> say_my_name("Jöhn", "Doe")
+My name is Jöhn Doe
+
+# Test case where first_name is a string with a tab character:
+>>> say_my_name("John\t", "Doe")
+My name is John\t Doe
+
+# Test case where first_name is a string with a newline character:
+>>> say_my_name("John\n", "Doe")
+My name is John\n Doe
+
+# Test case where both first_name and last_name are empty strings:
+>>> say_my_name("", "")
+My name is  
+
+# Test case where first_name and last_name have leading and trailing spaces:
+>>> say_my_name(" John ", " Doe ")
+My name is  John   Doe 
+
+# Test case where first_name and last_name have multiple consecutive spaces:
+>>> say_my_name("John  Smith", "Doe")
+My name is John  Smith Doe
+
+# Test case where first_name and last_name contain special characters other than tabs and newlines:
+>>> say_my_name("John@", "Doe")
+My name is John@ Doe

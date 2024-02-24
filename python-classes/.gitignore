@@ -1,0 +1,3 @@
+*.pycpyc
+__pycache__
+.vscode

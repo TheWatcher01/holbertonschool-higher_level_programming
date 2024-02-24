@@ -1,0 +1,51 @@
+"MyList" Test Module
+====================
+
+Using "MyList"
+--------------
+
+>>> MyList = __import__('1-my_list').MyList
+
+Correct Tests:
+
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(4)
+>>> my_list.append(2)
+>>> my_list.append(3)
+>>> my_list.append(5)
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+>>> my_list.print_sorted()
+[1, 2, 3, 4, 5]
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+
+Incorrect Tests:
+
+>>> my_list = MyList()
+>>> my_list.append('one')
+>>> my_list.append('two')
+>>> my_list.print_sorted()
+Traceback (most recent call last):
+TypeError: list elements must be integers
+
+# Test with negative numbers
+>>> test_list = MyList([3, -1, -4, 2])
+>>> test_list.print_sorted()
+[-4, -1, 2, 3]
+
+# Test with duplicate numbers
+>>> test_list = MyList([2, 3, 2, 1])
+>>> test_list.print_sorted()
+[1, 2, 2, 3]
+
+# Test with already sorted list
+>>> test_list = MyList([1, 2, 3, 4, 5])
+>>> test_list.print_sorted()
+[1, 2, 3, 4, 5]
+
+# Test with a single element
+>>> test_list = MyList([5])
+>>> test_list.print_sorted()
+[5]

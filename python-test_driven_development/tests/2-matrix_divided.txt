@@ -1,0 +1,125 @@
+The 'matrix_divided' module
+==========================
+
+Using 'matrix_divided'
+----------------------
+
+>>> matrix_divided = __import__('2-matrix_divided').matrix_divided
+
+# Test case where the matrix is empty or contains an empty list:
+>>> matrix_divided([], 42)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+>>> matrix_divided([[2, 4], [], [6, 8]], 42)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+# Test case where a tuple is passed as an argument:
+>>> matrix_divided((2, 4, 6), 42)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+>>> matrix_divided([[2, 4], (6, 8), [10, 12]], 42)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+# Test case where `div` is a list:
+>>> matrix_divided([[2, 4], [6, 8]], [42])
+Traceback (most recent call last):
+...
+TypeError: div must be a number
+
+# Test case where `div` is a string:
+>>> matrix_divided([[2, 4], [6, 8]], "42")
+Traceback (most recent call last):
+...
+TypeError: div must be a number
+
+# Test case where the elements of a matrix whose rows do not have the same size are divided:
+>>> matrix_divided([[2], [4, 6], [8, 10, 12]], 42)
+Traceback (most recent call last):
+...
+TypeError: Each row of the matrix must have the same size
+
+# Test case where the elements of the matrix are divided by 0:
+>>> matrix_divided([[2, 4], [6, 8]], 0)
+Traceback (most recent call last):
+...
+ZeroDivisionError: division by zero
+
+# Test case where the elements of the matrix are not integers/floats:
+>>> matrix_divided([["Holberton", "School"], ["Toulouse", "France"]], 42)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+>>> matrix_divided([["2.2", 4], ["6", 8.8], ["10.10", 12]], 42)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+# Test case where the elements of the matrix are divided by 3 (given example):
+>>> matrix_divided([[1, 2, 3], [4, 5, 6]], 3)
+[[0.33, 0.67, 1.0], [1.33, 1.67, 2.0]]
+
+# Test case where the elements of the matrix are divided by a float number:
+>>> matrix_divided([[2, 4], [6, 8]], 4.2)
+[[0.48, 0.95], [1.43, 1.9]]
+
+>>> matrix_divided([[2.2, 4.4, 6.6], [8.8, 10.10, 12.12]], 4.2)
+[[0.52, 1.05, 1.57], [2.1, 2.4, 2.89]]
+
+# Test case where the elements of the matrix contain both positive and negative integers/floats:
+>>> matrix_divided([[-2, 4.4], [6, -8]], 4.2)
+[[-0.48, 1.05], [1.43, -1.9]]
+
+# Test case where the matrix contains many numbers (long length):
+>>> matrix_divided([[2, 4, 6, 8, 10], [12, 14, 16, 18, 20], [22, 24, 26, 28, 30]], 2)
+[[1.0, 2.0, 3.0, 4.0, 5.0], [6.0, 7.0, 8.0, 9.0, 10.0], [11.0, 12.0, 13.0, 14.0, 15.0]]
+
+# Test case where the matrix contains None values:
+>>> matrix_divided([[None, 4], [6, 8]], 2)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+# Test case where the matrix contains boolean values:
+>>> matrix_divided([[True, 4], [6, False]], 2)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+# Test case where the matrix contains complex numbers:
+>>> matrix_divided([[2+3j, 4], [6, 8]], 2)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+# Test case where `div` is None:
+>>> matrix_divided([[2, 4], [6, 8]], None)
+Traceback (most recent call last):
+...
+TypeError: div must be a number
+
+# Test case where `div` is a boolean:
+>>> matrix_divided([[2, 4], [6, 8]], True)
+Traceback (most recent call last):
+...
+TypeError: div must be a number
+
+# Test case where `div` is a complex number:
+>>> matrix_divided([[2, 4], [6, 8]], 2+3j)
+Traceback (most recent call last):
+...
+TypeError: div must be a number
+
+# Test case where the matrix contains nested lists:
+>>> matrix_divided([[[2], 4], [6, 8]], 2)
+Traceback (most recent call last):
+...
+TypeError: matrix must be a matrix (list of lists) of integers/floats

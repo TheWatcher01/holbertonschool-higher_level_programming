@@ -1,0 +1,1 @@
+That's readme file for Python - if/else, loops, functions project
