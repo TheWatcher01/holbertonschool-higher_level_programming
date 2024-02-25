@@ -250,7 +250,7 @@ class TestRectangle(unittest.TestCase):
             r.display()
             self.assertEqual(buf.getvalue(), expected_output)
 
-    def test_area_exists(self):
+    def test_area(self):
         r = Rectangle(3, 4)
         self.assertEqual(r.area(), 12)
 
