@@ -236,5 +236,31 @@ class TestRectangle(unittest.TestCase):
             r1.height = -10
 
 
+    def test_display_without_x_and_y(self):
+        r = Rectangle(2, 2)
+        expected_output = "##\n##\n"
+        with io.StringIO() as buf, redirect_stdout(buf):
+            r.display()
+            self.assertEqual(buf.getvalue(), expected_output)
+
+    def test_display_without_y(self):
+        r = Rectangle(2, 2, 2)
+        expected_output = "  ##\n  ##\n"
+        with io.StringIO() as buf, redirect_stdout(buf):
+            r.display()
+            self.assertEqual(buf.getvalue(), expected_output)
+
+    def test_area_exists(self):
+        r = Rectangle(3, 4)
+        self.assertEqual(r.area(), 12)
+
+    def test_display(self):
+        r = Rectangle(2, 2, 2, 2)
+        expected_output = "\n\n  ##\n  ##\n"
+        with io.StringIO() as buf, redirect_stdout(buf):
+            r.display()
+            self.assertEqual(buf.getvalue(), expected_output)
+
+
 if __name__ == "__main__":
     unittest.main()
