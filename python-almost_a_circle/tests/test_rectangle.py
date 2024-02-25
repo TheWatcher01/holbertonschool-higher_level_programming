@@ -141,7 +141,7 @@ class TestRectangle(unittest.TestCase):
             os.remove("Rectangle.json")
         self.assertEqual(Rectangle.load_from_file(), [])
 
-    def test_27_rectangle_load_from_file_exists(self):
+    def test_27_rectangle_load_from_file(self):
         r1 = Rectangle(10, 7, 2, 8, 1)
         Rectangle.save_to_file([r1])
         rectangles = Rectangle.load_from_file()
