@@ -214,7 +214,6 @@ class TestSquare(unittest.TestCase):
         self.assertEqual(s1.x, 2)
         self.assertEqual(s1.y, 3)
 
-
     def test_save_to_file_none(self):
         if os.path.exists("Square.json"):
             os.remove("Square.json")

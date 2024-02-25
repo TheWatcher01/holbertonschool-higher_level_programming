@@ -134,7 +134,8 @@ class TestRectangle(unittest.TestCase):
         Rectangle.save_to_file([r1])
         with open("Rectangle.json", "r") as file:
             self.assertEqual(
-                file.read(), '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}]')
+                file.read(),
+                '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}]')
 
     def test_26_rectangle_load_from_file_no_file(self):
         if os.path.exists("Rectangle.json"):
@@ -234,7 +235,6 @@ class TestRectangle(unittest.TestCase):
         r1 = Rectangle(1, 2)
         with self.assertRaises(ValueError):
             r1.height = -10
-
 
     def test_display_without_x_and_y(self):
         r = Rectangle(2, 2)
