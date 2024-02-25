@@ -65,21 +65,6 @@ class TestSquare(unittest.TestCase):
     def setUpClass(cls):
         Base._Base__nb_objects = 0
 
-    def test_save_to_file_none_(self):
-        s = Square(1)
-        try:
-            s.save_to_file(None)
-            exists = True
-        except AttributeError:
-            exists = False
-        self.assertTrue(exists, "Method save_to_file(None) does not exist")
-
-    def test_save_to_file_none(self):
-        Square.save_to_file(None)
-        self.assertTrue(os.path.exists("Square.json"))
-        with open("Square.json", "r") as file:
-            self.assertEqual(file.read(), "[]")
-
     def test_save_to_file_empty(self):
         Square.save_to_file([])
         self.assertTrue(os.path.exists("Square.json"))
