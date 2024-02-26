@@ -8,9 +8,6 @@ import json
 import os
 
 
-
-
-
 class TestBase(unittest.TestCase):
     '''Tests the Base class.'''
 

@@ -4,6 +4,7 @@ tests.'''
 from models.square import Square
 from models.base import Base
 import unittest
+import json
 import os
 
 
@@ -128,8 +129,9 @@ class TestSquare(unittest.TestCase):
         Square.save_to_file([Square(1)])
 
         with open("Square.json", "r") as f:
-            self.assertEqual(
-                f.read(), '[{"id": 1, "x": 0, "size": 1, "y": 0}]')
+            output = json.load(f)
+            expected = [{"id": 1, "x": 0, "size": 1, "y": 0}]
+            self.assertEqual(output, expected)
 
     def test_save_to_file2(self):
         """Test save_to_file([]) in Square."""
