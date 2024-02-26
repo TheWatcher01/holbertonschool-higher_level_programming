@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Module for Base class."""
 import json
-
+import os
 
 class Base:
     """Base class for other classes in the project."""
@@ -21,7 +21,8 @@ class Base:
 
     @staticmethod
     def to_json_string(list_dictionaries):
-        """Returns the JSON string representation of list_dictionaries.
+        """
+        Returns the JSON string representation of list_dictionaries.
 
         Args:
             list_dictionaries (list): A list of dictionaries.
@@ -32,7 +33,8 @@ class Base:
 
     @staticmethod
     def from_json_string(json_string):
-        """Returns the list of the JSON string representation json_string.
+        """
+        Returns the list of the JSON string representation json_string.
 
         Args:
             json_string (str): A string representing a list of dictionaries.
@@ -43,17 +45,35 @@ class Base:
 
     @classmethod
     def create(cls, **dictionary):
-        """Returns an instance with all attributes already set.
-
-        Args:
-            **dictionary (dict): Double pointer to a dictionary.
         """
-        # Dummy instance creation will depend on the specific class
-        # and should be implemented in child classes.
-        pass
+        Returns an instance with all attributes already set.
+        """
+        if cls.__name__ == "Rectangle":
+            dummy = cls(1, 1)
+        elif cls.__name__ == "Square":
+            dummy = cls(1)
+        dummy.update(**dictionary)
+        return dummy
 
     @classmethod
     def load_from_file(cls):
         """Returns a list of instances."""
-        # This method should be implemented in child classes.
-        pass
+        filename = cls.__name__ + ".json"
+        if not os.path.exists(filename):
+            return []
+        with open(filename, 'r') as file:
+            list_dicts = cls.from_json_string(file.read())
+            return [cls.create(**d) for d in list_dicts]
+
+    @classmethod
+    def save_to_file(cls, list_objs):
+        """
+        Writes JSON string representation of list_objs to file.
+        """
+        filename = f"{cls.__name__}.json"
+        with open(filename, 'w') as file:
+            if list_objs is None:
+                file.write("[]")
+            else:
+                list_dicts = [obj.to_dictionary() for obj in list_objs]
+                file.write(cls.to_json_string(list_dicts))

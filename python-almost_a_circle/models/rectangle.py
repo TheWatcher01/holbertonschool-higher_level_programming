@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """ Module for Rectangle class. """
 from models.base import Base
-import os
-import json
 
 
 class Rectangle(Base):
@@ -105,52 +103,10 @@ class Rectangle(Base):
                     setattr(self, key, value)
 
     def to_dictionary(self):
-        """Returns dictionary representation of a Rectangle."""
+        """
+        Returns dictionary representation of a Rectangle.
+        """
         return {
             'id': self.id, 'width': self.width,
             'height': self.height, 'x': self.x, 'y': self.y
         }
-
-    @classmethod
-    def save_to_file(cls, list_objs):
-        """
-        Writes JSON string representation of list_objs to file.
-        """
-        filename = f"{cls.__name__}.json"
-        with open(filename, 'w') as file:
-            if list_objs is None:
-                file.write("[]")
-            else:
-                list_dicts = [obj.to_dictionary() for obj in list_objs]
-                file.write(cls.to_json_string(list_dicts))
-
-    @staticmethod
-    def from_json_string(json_string):
-        """
-        Returns list of JSON string representation json_string.
-        """
-        if json_string is None or json_string == "":
-            return []
-        return json.loads(json_string)
-
-    @classmethod
-    def create(cls, **dictionary):
-        """
-        Returns an instance with all attributes already set.
-        """
-        if cls.__name__ == "Rectangle":
-            dummy = cls(1, 1)
-        elif cls.__name__ == "Square":
-            dummy = cls(1)
-        dummy.update(**dictionary)
-        return dummy
-
-    @classmethod
-    def load_from_file(cls):
-        """Returns a list of instances."""
-        filename = cls.__name__ + ".json"
-        if not os.path.exists(filename):
-            return []
-        with open(filename, 'r') as file:
-            list_dicts = cls.from_json_string(file.read())
-            return [cls.create(**d) for d in list_dicts]
