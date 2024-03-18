@@ -1,0 +1,2 @@
+-- Selects and displays the 'score' and the count of each 'score' from 'second_table', grouped by 'score' and ordered by the count in descending order
+SELECT score, COUNT(score) AS number FROM second_table GROUP BY score ORDER BY number DESC;
