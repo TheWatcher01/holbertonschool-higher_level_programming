@@ -17,6 +17,11 @@ Ce guide fournit des instructions détaillées pour l'installation et la configu
     - [Authentification par Socket (Plugin MySQL)](#authentification-par-socket-plugin-mysql)
     - [Authentification par SSL (Plugin MySQL)](#authentification-par-ssl-plugin-mysql)
     - [Authentification par SSH (Plugin MySQL) sur WSL Ubuntu](#authentification-par-ssh-plugin-mysql-sur-wsl-ubuntu)
+    - [Test de la Connexion](#test-de-la-connexion)
+    - [Gestion des Erreurs](#gestion-des-erreurs)
+    - [Utilisation du Plugin](#utilisation-du-plugin)
+    - [Sécurité](#sécurité)
+    - [Autres Fonctionnalités du Plugin](#autres-fonctionnalités-du-plugin)
 
 ## Prérequis
 
@@ -243,3 +248,33 @@ Remplacez "your_username@your_server" par votre nom d'utilisateur et l'adresse d
 4. Enregistrez les modifications et redémarrez Visual Studio Code pour que les modifications prennent effet. Vous devriez maintenant être en mesure de vous connecter à votre base de données MySQL en utilisant l'authentification SSH.
 
 Remplacez les valeurs par vos informations de connexion MySQL. Chaque méthode d'authentification a ses propres avantages et inconvénients. L'authentification par mot de passe est la plus simple à mettre en place, mais elle est moins sécurisée que les autres méthodes. L'authentification par socket est plus sécurisée, mais elle ne fonctionne que sur le système de fichiers local. L'authentification par SSL et SSH sont les plus sécurisées, mais elles nécessitent une configuration supplémentaire.
+
+### Test de la Connexion
+
+Après avoir configuré le plugin MySQL, vous pouvez tester la connexion à la base de données en exécutant une requête SQL de base. Par exemple :
+
+```sql
+SELECT DATABASE();
+```
+
+Si la connexion est correctement configurée, cette requête devrait retourner le nom de la base de données à laquelle vous êtes connecté.
+
+### Gestion des Erreurs
+
+Si vous rencontrez des erreurs lors de la configuration du plugin MySQL, voici quelques étapes de dépannage courantes :
+
+- Vérifiez que vous avez correctement saisi les informations de connexion dans le fichier de configuration.
+- Assurez-vous que le serveur MySQL est en cours d'exécution.
+- Si vous recevez un message d'erreur indiquant que la connexion à la base de données a échoué, vérifiez que le serveur MySQL est accessible depuis votre machine et que les informations de connexion sont correctes.
+
+### Utilisation du Plugin
+
+Une fois que vous avez configuré le plugin MySQL, vous pouvez l'utiliser pour exécuter des requêtes SQL, visualiser les résultats, gérer plusieurs connexions, et plus encore. Pour exécuter une requête SQL, ouvrez une nouvelle fenêtre de requête SQL en cliquant sur le bouton "New Query" dans la vue MySQL, tapez votre requête, puis appuyez sur F5 pour l'exécuter.
+
+### Sécurité
+
+Lors de l'utilisation de MySQL, il est important de suivre les bonnes pratiques de sécurité. Utilisez toujours des mots de passe forts pour vos comptes d'utilisateur MySQL, limitez les privilèges de l'utilisateur de la base de données autant que possible, et assurez-vous de toujours garder votre serveur MySQL à jour avec les derniers correctifs de sécurité.
+
+### Autres Fonctionnalités du Plugin
+
+Le plugin MySQL pour Visual Studio Code offre également d'autres fonctionnalités utiles, comme le support de l'autocomplétion SQL, la coloration syntaxique, et le formatage du code SQL. Vous pouvez également explorer les bases de données et les tables, afficher les schémas de table, et plus encore directement depuis la vue MySQL.
