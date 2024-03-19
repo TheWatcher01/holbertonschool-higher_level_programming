@@ -1,0 +1,22 @@
+# Commande pour installer les pkg et dépendances necessaire pour le 3eme projet :
+
+sudo apt update && sudo apt upgrade && sudo apt install python3-pip && sudo apt install pkg-config && sudo apt install mysql-server && sudo apt-get install python3-dev libmysqlclient-dev zlib1g-dev && sudo pip3 install mysqlclient SQLAlchemy
+
+Voici une explication détaillée de chaque commande :
+
+1. sudo apt update: Cette commande met à jour la liste des paquets disponibles pour l'installation sur votre système Ubuntu. sudo est utilisé pour exécuter la commande en tant qu'administrateur.
+
+2. sudo apt upgrade: Cette commande met à jour tous les paquets installés sur votre système Ubuntu vers leur dernière version.
+
+3. sudo apt install python3-pip: Cette commande installe pip pour Python 3. Pip est un gestionnaire de paquets pour Python, il permet d'installer et de gérer des bibliothèques et des dépendances supplémentaires qui ne sont pas distribuées comme partie de la bibliothèque standard de Python.
+
+4. sudo apt install pkg-config: Cette commande installe pkg-config, un programme utilisé pour compiler et lier contre une ou plusieurs bibliothèques. Il est utilisé pour fournir les drapeaux de compilation et de liaison nécessaires.
+
+5. sudo apt install mysql-server: Cette commande installe le serveur MySQL sur votre système Ubuntu. MySQL est un système de gestion de base de données relationnelle.
+
+6. sudo apt-get install python3-dev libmysqlclient-dev zlib1g-dev: Cette commande installe les paquets de développement pour Python 3, la bibliothèque cliente MySQL et la bibliothèque de compression zlib. Ces paquets sont nécessaires pour compiler certaines extensions Python.
+
+7. sudo pip3 install mysqlclient SQLAlchemy: Cette commande utilise pip pour installer les paquets Python mysqlclient et SQLAlchemy. mysqlclient est une interface Python pour MySQL et SQLAlchemy est un ORM (Object Relational Mapper) pour Python, qui permet d'interagir avec votre base de données, comme si vous manipuliez des objets Python.
+
+Chaque commande est séparée par &&, ce qui signifie que la commande suivante ne s'exécutera que si la commande précédente a réussi.
+Si vous avez des soucis lors des installations n'hésité pas à me soliciter.
