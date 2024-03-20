@@ -1,20 +1,17 @@
--- Select 'name' column from 'tv_genres' table
+-- Select the name of the genre from the 'tv_genres' table
 SELECT tv_genres.name
-    -- From 'tv_genres' table
 FROM tv_genres
-    -- Where 'id' in 'tv_genres' table is not in the following subquery
+    -- Where the genre name is not in the list of genre names linked to the show 'Dexter'
 WHERE
-    tv_genres.id NOT IN(
-        -- This subquery selects 'genre_id' from 'tv_show_genres' table
-        SELECT tv_show_genres.genre_id
-            -- From 'tv_show_genres' table
-        FROM tv_show_genres
-            /* Inner join 'tv_shows' table on 'show_id' in 'tv_show_genres' table &
-            'id' in 'tv_shows' table */
-            INNER JOIN tv_shows ON tv_shows.id = tv_show_genres.show_id
-            -- Where 'title' in 'tv_shows' table is 'Dexter'
+    tv_genres.name NOT IN(
+        -- Subquery to get the list of genre names linked to the show 'Dexter'
+        SELECT tv_genres.name
+        FROM
+            tv_genres
+            INNER JOIN tv_show_genres ON tv_genres.id = tv_show_genres.genre_id
+            INNER JOIN tv_shows ON tv_show_genres.show_id = tv_shows.id
         WHERE
             tv_shows.title = 'Dexter'
     )
-    -- Order results by 'name' in 'tv_genres' table in ascending order
+    -- Order the results by the name of the genre in ascending order
 ORDER BY tv_genres.name ASC;
