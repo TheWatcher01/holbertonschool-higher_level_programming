@@ -1,6 +1,6 @@
 -- Select the title of the show and the name of the genre.
 -- If the genre is not available, display 'NULL'.
-SELECT tv_shows.title, IFNULL(tv_genres.name, 'NULL') AS genre
+SELECT tv_shows.title, IFNULL(tv_genres.name, 'NULL')
     -- From the table 'tv_shows'
 FROM
     tv_shows
@@ -11,7 +11,7 @@ FROM
     -- Perform another LEFT JOIN with the 'tv_genres' table
     -- based on the matching 'genre_id' in 'show_genres' and 'id' in 'tv_genres'.
     -- This connects the genre names to the shows.
-    LEFT JOIN tv_genres ON show_genres.genre_id = tv_genres.id
+    LEFT JOIN tv_genres.name ON show_genres.genre_id = tv_genres.id
     -- Order the results first by the title of the show in ascending order,
     -- and then by the genre name in ascending order.
-ORDER BY tv_shows.title ASC, genre ASC;
+ORDER BY tv_shows.title ASC, tv_genres.name ASC;
