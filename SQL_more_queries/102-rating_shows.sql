@@ -1,5 +1,5 @@
 -- Select the title of each show and the sum of its ratings
-SELECT tv_shows.title, SUM(tv_show_ratings.rating) AS rating_sum
+SELECT tv_shows.title, SUM(tv_show_ratings.rate) AS rating_sum
 FROM
     tv_shows -- From the tv_shows table
     -- Join with the tv_show_ratings table where the show IDs match
