@@ -24,8 +24,8 @@ class State(Base):
 
 def select_states():
     """
-    Connects to a MySQL server, creates a database and a table if they don't exist,
-    inserts data into the table, and then queries and prints all rows from the table.
+    Connects to MySQL server, creates database and table if they don't exist,
+    inserts data into table, and then queries and prints all rows from table.
     """
     # Get database credentials from environment variables
     username = os.getenv('DB_USER')
@@ -49,12 +49,13 @@ def select_states():
     """)
     cur.execute("""
         INSERT INTO states (name)
-        VALUES ("California"), ("Arizona"), ("Texas"), ("New York"), ("Nevada");
-    """)
+        VALUES ("California"), ("Arizona"), ("Texas"), ("New York"),
+                ("Nevada");""")
 
     # Create an SQLAlchemy engine that connects to the MySQL server
     engine = create_engine(
-        'mysql+mysqldb://{}:{}@localhost/{}'.format(username, password, database))
+        'mysql+mysqldb://{}:{}@localhost/{}'.format(username, password,
+                                                    database))
 
     # Create a configured "Session" class
     Session = sessionmaker(bind=engine)
@@ -70,6 +71,6 @@ def select_states():
     session.close()
 
 
-# Only run the following code when this file is run directly, not when it's imported
+# Only run following code when this file is run directly not when it's imported
 if __name__ == "__main__":
     select_states()
