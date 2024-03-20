@@ -11,7 +11,7 @@ WHERE
         FROM tv_shows
             /* Inner join 'tv_shows' table on 'show_id' in 'tv_show_genres' table &
             'id' in 'tv_shows' table */
-            INNER JOIN tv_show_genres ON tv_shows.id = tv_show_genres.show_id
+            JOIN tv_show_genres ON tv_shows.id = tv_show_genres.show_id
             -- Where 'title' in 'tv_shows' table is 'Dexter'
         WHERE
             tv_shows.title = 'Dexter'
