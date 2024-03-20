@@ -38,8 +38,8 @@ def select_states():
     cur = db.cursor()
 
     # Execute SQL queries to set up the database and table
-    cur.execute("CREATE DATABASE IF NOT EXISTS {};".format(database))
-    cur.execute("USE {};".format(database))
+    cur.execute(f"CREATE DATABASE IF NOT EXISTS {database};")
+    cur.execute(f"USE {database};")
     cur.execute("""
         CREATE TABLE IF NOT EXISTS states (
             id INT NOT NULL AUTO_INCREMENT,
@@ -54,8 +54,7 @@ def select_states():
 
     # Create an SQLAlchemy engine that connects to the MySQL server
     engine = create_engine(
-        'mysql+mysqldb://{}:{}@localhost/{}'.format(username, password,
-                                                    database))
+        f'mysql+mysqldb://{username}:{password}@localhost/{database}')
 
     # Create a configured "Session" class
     Session = sessionmaker(bind=engine)
