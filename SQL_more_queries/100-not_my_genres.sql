@@ -8,10 +8,10 @@ WHERE
         -- This subquery selects 'genre_id' from 'tv_show_genres' table
         SELECT tv_show_genres.genre_id
             -- From 'tv_show_genres' table
-        FROM tv_show_genres
+        FROM tv_shows
             /* Inner join 'tv_shows' table on 'show_id' in 'tv_show_genres' table &
             'id' in 'tv_shows' table */
-            INNER JOIN tv_shows ON tv_show_genres.show_id = tv_shows.id
+            INNER JOIN tv_show_genres ON tv_shows.id = tv_show_genres.show_id
             -- Where 'title' in 'tv_shows' table is 'Dexter'
         WHERE
             tv_shows.title = 'Dexter'
