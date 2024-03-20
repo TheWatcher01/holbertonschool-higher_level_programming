@@ -1,0 +1,75 @@
+#!/usr/bin/python3
+"""
+Module for interacting with a MySQL database.
+"""
+
+import os
+import MySQLdb
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base
+
+# Define a base class for declarative models
+Base = declarative_base()
+
+
+class State(Base):
+    """
+    Define a State model that includes `id` and `name` fields.
+    """
+    __tablename__ = 'states'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+
+
+def select_states():
+    """
+    Connects to a MySQL server, creates a database and a table if they don't exist,
+    inserts data into the table, and then queries and prints all rows from the table.
+    """
+    # Get database credentials from environment variables
+    username = os.getenv('DB_USER')
+    password = os.getenv('DB_PASS')
+    database = os.getenv('DB_NAME')
+
+    # Connect to the MySQL server with MySQLdb
+    db = MySQLdb.connect(host="localhost", port=3306,
+                         user=username, passwd=password)
+    cur = db.cursor()
+
+    # Execute SQL queries to set up the database and table
+    cur.execute("CREATE DATABASE IF NOT EXISTS {};".format(database))
+    cur.execute("USE {};".format(database))
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS states (
+            id INT NOT NULL AUTO_INCREMENT,
+            name VARCHAR(256) NOT NULL,
+            PRIMARY KEY (id)
+        );
+    """)
+    cur.execute("""
+        INSERT INTO states (name)
+        VALUES ("California"), ("Arizona"), ("Texas"), ("New York"), ("Nevada");
+    """)
+
+    # Create an SQLAlchemy engine that connects to the MySQL server
+    engine = create_engine(
+        'mysql+mysqldb://{}:{}@localhost/{}'.format(username, password, database))
+
+    # Create a configured "Session" class
+    Session = sessionmaker(bind=engine)
+
+    # Create a Session
+    session = Session()
+
+    # Query the database and print each row
+    for state in session.query(State).order_by(State.id):
+        print(state.id, state.name)
+
+    # Close the Session to free up resources
+    session.close()
+
+
+# Only run the following code when this file is run directly, not when it's imported
+if __name__ == "__main__":
+    select_states()
