@@ -7,7 +7,7 @@ FROM
     'show_id' in 'tv_show_genres' table */
     INNER JOIN tv_show_genres ON tv_shows.id = tv_show_genres.show_id
     -- Inner join 'tv_genres' table on 'genre_id' in 'tv_show_genres' table & 'id' in 'tv_genres' table
-    INNER JOIN tv_genres ON tv_show_genres.genre_id = tv_genres.id
+    INNER JOIN tv_genres ON tv_genres.id = tv_show_genres.genre_id
     -- Where 'name' in 'tv_genres' table is 'Comedy'
 WHERE
     tv_genres.name = 'Comedy'
