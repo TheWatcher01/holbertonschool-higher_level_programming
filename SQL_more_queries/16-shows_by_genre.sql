@@ -1,6 +1,6 @@
 -- Select the title of the show and the name of the genre. 
 -- If the genre is not available, display 'NULL'.
-SELECT tv_shows.title, IFNULL(tv_genres.name, 'NULL') AS genre
+SELECT tv_shows.title, tv_genres.name AS genre
     -- From the table 'tv_shows'
 FROM
     tv_shows
