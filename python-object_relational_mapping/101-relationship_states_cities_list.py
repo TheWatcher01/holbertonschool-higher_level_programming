@@ -13,9 +13,8 @@ Results are displayed as they are in the example below.
 The code is not executed when imported.
 """
 
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Utils.check_MySQL import check_mysql
-from Utils.engine_setup import setup_engine
 from relationship_state import Base, State
 from relationship_city import City
 import sys
@@ -36,10 +35,9 @@ def list_states_cities():
     database = sys.argv[3]
 
     try:
-        engine = setup_engine(username, password, database)
-
-        if engine is None:
-            return
+        engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'
+                               .format(username, password, database),
+                               pool_pre_ping=True)
 
         Session = sessionmaker(bind=engine)
         session = Session()
@@ -60,5 +58,4 @@ def list_states_cities():
 
 
 if __name__ == "__main__":
-    check_mysql()
     list_states_cities()
