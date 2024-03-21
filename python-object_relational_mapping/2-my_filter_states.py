@@ -25,8 +25,8 @@ def filter_states():
 
     # Check if the correct number of arguments are provided
     if len(sys.argv) != 5:
-        print("Usage: ./2-my_filter_states.py username password "
-              "database state_name_searched")
+        print("Usage: ./2-my_filter_states.py {} {} {} {}".format(
+            "username", "password", "database", "state_name_searched"))
         return
 
     # Retrieve the arguments passed to the script
@@ -57,7 +57,7 @@ def filter_states():
 
     except MySQLdb.Error as e:
         # Print any error that occurs
-        print(f"Error: {str(e)}")
+        print("Error: {}".format(str(e)))
 
     finally:
         # Close the connection and cursor
