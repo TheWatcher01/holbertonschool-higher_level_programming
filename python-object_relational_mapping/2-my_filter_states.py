@@ -47,8 +47,9 @@ def filter_states():
         cur = db.cursor()
 
         # Execute the SQL query
-        cur.execute("SELECT * FROM states WHERE name = %s ORDER BY id ASC",
-                    (state_name_searched,))
+        query = ("SELECT * FROM states WHERE name = '{}' "
+                 "ORDER BY id ASC".format(state_name_searched))
+        cur.execute(query)
 
         # Retrieve and display the results
         for row in cur.fetchall():
