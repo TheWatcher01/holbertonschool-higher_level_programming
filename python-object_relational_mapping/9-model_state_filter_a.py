@@ -13,9 +13,9 @@ The code is not executed when imported.
 """
 
 # Import necessary modules
+from sqlalchemy.orm import sessionmaker
 from Utils.check_MySQL import check_mysql
 from Utils.engine_setup import setup_engine
-from Utils.session_setup import setup_session
 from model_state import Base, State
 import sys
 
@@ -45,7 +45,8 @@ def list_states_with_a():
             return
 
         # Create a Session
-        session = setup_session(engine)
+        Session = sessionmaker(bind=engine)
+        session = Session()
 
         # Query the database for all State objects that contain the letter 'a'
         states = session.query(State).filter(State.name.contains('a'))\
