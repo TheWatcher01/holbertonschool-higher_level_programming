@@ -11,8 +11,9 @@ Uses SQLAlchemy to connect to MySQL server running on localhost at port 3306.
 The code is not executed when imported.
 """
 
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from Utils.check_MySQL import check_mysql
+from Utils.engine_setup import setup_engine
 from relationship_state import Base, State
 from relationship_city import City
 import sys
@@ -33,18 +34,19 @@ def create_state_city():
     database = sys.argv[3]
 
     try:
-        engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'
-                               .format(username, password, database),
-                               pool_pre_ping=True)
+        engine = setup_engine(username, password, database)
+
+        if engine is None:
+            return
 
         Session = sessionmaker(bind=engine)
         session = Session()
 
         new_state = State(name="California")
-        new_city = City(name="San Francisco")
-        new_state.cities.append(new_city)
+        new_city = City(name="San Francisco", state=new_state)
 
         session.add(new_state)
+        session.add(new_city)
         session.commit()
 
     except Exception as e:
@@ -56,4 +58,5 @@ def create_state_city():
 
 
 if __name__ == "__main__":
+    check_mysql()
     create_state_city()
