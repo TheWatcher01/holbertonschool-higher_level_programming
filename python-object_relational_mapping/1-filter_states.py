@@ -1,4 +1,17 @@
 #!/usr/bin/python3
+"""
+Module: 1-filter_states.py
+Author: TheWatcher01
+Date: 21/03/2024
+Description:
+Script lists all states with name starting with N (upper N) from
+database hbtn_0e_0_usa.
+It takes 3 arguments: mysql username, mysql password and database name.
+It uses module MySQLdb to connect to a MySQL server running on localhost
+at port 3306.
+Results are sorted in ascending order by states.id and displayed as they are.
+The code is not executed when imported.
+"""
 from check_MySQL import check_mysql
 import MySQLdb
 import sys
@@ -27,7 +40,8 @@ def filter_states():
         cur = db.cursor()
 
         # Execute the SQL query
-        cur.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+        cur.execute("SELECT * FROM states "
+                    "WHERE name LIKE 'N%' ORDER BY id ASC")
 
         # Retrieve and display the results
         for row in cur.fetchall():

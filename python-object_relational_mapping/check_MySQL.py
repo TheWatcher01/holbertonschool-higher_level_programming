@@ -1,10 +1,9 @@
 #!/usr/bin/python3
-
 """
 File: check_MySQL.py
 Author: TM_FULLNAME
 Date: 2024-03-21
-Description: 
+Description:
 """
 
 import os
