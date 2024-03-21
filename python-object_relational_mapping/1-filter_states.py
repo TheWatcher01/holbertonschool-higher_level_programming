@@ -18,9 +18,14 @@ import sys
 
 
 def filter_states():
-    # Check the number of arguments
+    """
+    Function to filter states based on user input.
+    """
+
+    # Check if the correct number of arguments are provided
     if len(sys.argv) != 4:
-        print("Usage: ./1-filter_states.py username password database")
+        print("Usage: ./1-filter_states.py username password "
+              "database")
         return
 
     # Retrieve the arguments passed to the script
@@ -40,24 +45,26 @@ def filter_states():
         cur = db.cursor()
 
         # Execute the SQL query
-        cur.execute("SELECT * FROM states "
-                    "WHERE name LIKE BINARY 'N%' ORDER BY id ASC")
+        cur.execute("SELECT * FROM states WHERE name LIKE BINARY 'N%' "
+                    "ORDER BY id ASC")
 
         # Retrieve and display the results
         for row in cur.fetchall():
             print(row)
 
     except MySQLdb.Error as e:
+        # Print any error that occurs
         print(f"Error: {str(e)}")
 
     finally:
-        # Close the connection
+        # Close the connection and cursor
         if cur:
             cur.close()
         if db:
             db.close()
 
 
+# Ensure the script is not executed when imported
 if __name__ == "__main__":
     check_mysql()
     filter_states()
