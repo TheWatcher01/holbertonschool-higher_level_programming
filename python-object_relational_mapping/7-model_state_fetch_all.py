@@ -14,8 +14,8 @@ The code is not executed when imported.
 # Import necessary modules
 from Utils.check_MySQL import check_mysql
 from Utils.engine_setup import setup_engine
-from Utils.session_setup import setup_session
 from model_state import Base, State
+from sqlalchemy.orm import sessionmaker
 import sys
 
 
@@ -35,16 +35,18 @@ def list_states():
     password = sys.argv[2]
     database = sys.argv[3]
 
+    # Initialize session to None
+    session = None
+
     try:
         # Create an engine
         engine = setup_engine(username, password, database)
 
-        # Check if engine was successfully created
-        if engine is None:
-            return
+        # Create a configured "Session" class
+        Session = sessionmaker(bind=engine)
 
         # Create a Session
-        session = setup_session(engine)
+        session = Session()
 
         # Query the database
         for state in session.query(State).order_by(State.id):
