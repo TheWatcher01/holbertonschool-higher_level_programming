@@ -14,8 +14,8 @@ The code is not executed when imported.
 # Import necessary modules
 from check_MySQL import check_mysql
 from model_state import Base, State
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from engine_setup import setup_engine
 import sys
 
 
@@ -40,9 +40,7 @@ def list_states():
 
     try:
         # Create an engine
-        engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'
-                               .format(username, password, database),
-                               pool_pre_ping=True)
+        engine = setup_engine(username, password, database)
 
         # Create a configured "Session" class
         Session = sessionmaker(bind=engine)
