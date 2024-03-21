@@ -13,17 +13,58 @@ The code is not executed when imported.
 
 # Import necessary modules
 from check_MySQL import check_mysql
-from db_config import get_database_session
-from db_ops import list_states
+from model_state import Base, State
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 import sys
 
-if __name__ == "__main__":
-    check_mysql()
-    session = get_database_session(sys.argv[1], sys.argv[2], sys.argv[3])
+
+def list_states():
+    """
+    Function to list all State objects from the database.
+    """
+
+    # Check if the correct number of arguments are provided
+    if len(sys.argv) != 4:
+        print("Usage: ./7-model_state_fetch_all.py username password "
+              "database")
+        return
+
+    # Retrieve the arguments passed to the script
+    username = sys.argv[1]
+    password = sys.argv[2]
+    database = sys.argv[3]
+
+    # Initialize session to None
+    session = None
+
     try:
-        list_states(session)
+        # Create an engine
+        engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'
+                               .format(username, password, database),
+                               pool_pre_ping=True)
+
+        # Create a configured "Session" class
+        Session = sessionmaker(bind=engine)
+
+        # Create a Session
+        session = Session()
+
+        # Query the database
+        for state in session.query(State).order_by(State.id):
+            print("{}: {}".format(state.id, state.name))
+
     except Exception as e:
+        # Print the full exception
         print(e)
+
     finally:
+        # Close the Session
         if session:
             session.close()
+
+
+# Ensure the script is not executed when imported
+if __name__ == "__main__":
+    check_mysql()
+    list_states()
