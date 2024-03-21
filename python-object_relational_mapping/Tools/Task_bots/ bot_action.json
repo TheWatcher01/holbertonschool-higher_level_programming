@@ -1,0 +1,188 @@
+{
+  "database_connection": {
+    "user": "root",
+    "password": "root",
+    "host": "localhost",
+    "port": 3306,
+    "databases": ["hbtn_0e_0_usa", "hbtn_0e_4_usa", "hbtn_0e_6_usa", "hbtn_0e_14_usa", "hbtn_0e_100_usa", "hbtn_0e_101_usa"]
+  },
+  "tables": {
+    "states": {
+      "columns": {
+        "id": "INT NOT NULL AUTO_INCREMENT PRIMARY KEY",
+        "name": "VARCHAR(256) NOT NULL"
+      }
+    },
+    "cities": {
+      "columns": {
+        "id": "INT NOT NULL AUTO_INCREMENT PRIMARY KEY",
+        "state_id": "INT NOT NULL",
+        "name": "VARCHAR(256) NOT NULL",
+        "foreign_keys": {
+          "state_id": "states(id)"
+        }
+      }
+    }
+  },
+  "tasks": {
+    "connection": "Utilisez MySQLdb et SQLAlchemy pour la connexion.",
+    "operations": {
+      "select": "Sélection de données",
+      "insert": "Insertion de données",
+      "update": "Mise à jour de données",
+      "delete": "Suppression de données"
+    },
+    "security": "Prévention des injections SQL",
+    "relations": "Gestion des relations entre les tables 'states' et 'cities', y compris la suppression en cascade."
+  }
+}
+
+
+
+
+{
+  "connection_info": {
+    "user": "root",
+    "password": "root",
+    "host": "localhost",
+    "port": 3306
+  },
+  "tasks": [
+    {
+      "task_id": 0,
+      "description": "Get all states",
+      "database": "hbtn_0e_0_usa",
+      "operation": "SELECT * FROM states ORDER BY id ASC",
+      "expected_output": "(id, 'state_name')"
+    },
+    {
+      "task_id": 1,
+      "description": "Filter states with a name starting with N",
+      "database": "hbtn_0e_0_usa",
+      "operation": "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC",
+      "expected_output": "(id, 'state_name')"
+    },
+    {
+      "task_id": 2,
+      "description": "Filter states by user input",
+      "database": "hbtn_0e_0_usa",
+      "user_input": "state_name",
+      "safe": false,
+      "expected_output": "(id, 'state_name')"
+    },
+    {
+      "task_id": 3,
+      "description": "SQL Injection safe search",
+      "database": "hbtn_0e_0_usa",
+      "user_input": "state_name",
+      "safe": true,
+      "expected_output": "(id, 'state_name')"
+    },
+    {
+      "task_id": 4,
+      "description": "Cities by states",
+      "database": "hbtn_0e_4_usa",
+      "operation": "SELECT cities.id, cities.name, states.name FROM cities JOIN states ON cities.state_id = states.id ORDER BY cities.id ASC",
+      "expected_output": "(city_id, 'city_name', 'state_name')"
+    },
+    {
+      "task_id": 5,
+      "description": "All cities by state",
+      "database": "hbtn_0e_4_usa",
+      "user_input": "state_name",
+      "safe": true,
+      "expected_output": "'city_name'"
+    },
+    {
+      "task_id": 6,
+      "description": "First state model",
+      "database": "hbtn_0e_6_usa",
+      "model": "State",
+      "operation": "Base.metadata.create_all(engine)"
+    },
+    {
+      "task_id": 7,
+      "description": "All states via SQLAlchemy",
+      "database": "hbtn_0e_6_usa",
+      "operation": "session.query(State).order_by(State.id).all()",
+      "expected_output": "id: state_name"
+    },
+    {
+  "tasks": [
+    {
+      "task_id": 8,
+      "description": "Prints the first State object",
+      "database": "hbtn_0e_6_usa",
+      "operation": "session.query(State).order_by(State.id).first()",
+      "expected_output": "id: state_name",
+      "note": "If the table states is empty, print Nothing."
+    },
+    {
+      "task_id": 9,
+      "description": "Lists all State objects that contain the letter 'a'",
+      "database": "hbtn_0e_6_usa",
+      "operation": "session.query(State).filter(State.name.like('%a%')).order_by(State.id)",
+      "expected_output": "id: state_name"
+    },
+    {
+      "task_id": 10,
+      "description": "Prints the State object with the name passed as argument",
+      "database": "hbtn_0e_6_usa",
+      "user_input": "state_name",
+      "safe": true,
+      "expected_output": "id",
+      "note": "If no state has the name, display Not found."
+    },
+    {
+      "task_id": 11,
+      "description": "Adds the State object “Louisiana”",
+      "database": "hbtn_0e_6_usa",
+      "operation": "Add 'Louisiana' to states and print the new state.id"
+    },
+    {
+      "task_id": 12,
+      "description": "Changes the name of a State object",
+      "database": "hbtn_0e_6_usa",
+      "update_info": {
+        "original_name": "Any",
+        "new_name": "New Mexico",
+        "state_id": 2
+      }
+    },
+    {
+      "task_id": 13,
+      "description": "Deletes all State objects with a name containing the letter 'a'",
+      "database": "hbtn_0e_6_usa",
+      "operation": "session.query(State).filter(State.name.like('%a%')).delete(synchronize_session='fetch')"
+    },
+    {
+      "task_id": 14,
+      "description": "Prints all City objects from the database",
+      "database": "hbtn_0e_14_usa",
+      "operation": "session.query(City).order_by(City.id).all()",
+      "expected_output": "state_name: (city_id) city_name"
+    },
+    {
+      "task_id": 15,
+      "description": "City relationship",
+      "note": "Improve model_state.py and model_city.py to establish relationships."
+    },
+    {
+      "task_id": 16,
+      "description": "List all State objects, and corresponding City objects",
+      "database": "hbtn_0e_101_usa",
+      "operation": "For each State, list its Cities",
+      "expected_output": "state_id: state_name\\n\\tcity_id: city_name"
+    },
+    {
+      "task_id": 17,
+      "description": "Lists all City objects",
+      "database": "hbtn_0e_101_usa",
+      "operation": "session.query(City).join(State).order_by(City.id).all()",
+      "expected_output": "city_id: city_name -> state_name"
+    }
+  ]
+}
+
+  ]
+}
