@@ -57,7 +57,7 @@ def filter_states():
 
     except MySQLdb.Error as e:
         # Print any error that occurs
-        print(f"Error: {str(e)}")
+        print(e)
 
     finally:
         # Close the connection and cursor
