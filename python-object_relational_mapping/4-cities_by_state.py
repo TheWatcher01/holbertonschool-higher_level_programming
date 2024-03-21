@@ -12,7 +12,7 @@ The code is not executed when imported.
 """
 
 # Import necessary modules
-from check_MySQL import check_mysql
+from Utils.check_MySQL import check_mysql
 import MySQLdb
 import sys
 

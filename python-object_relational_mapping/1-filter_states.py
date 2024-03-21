@@ -12,7 +12,7 @@ at port 3306.
 Results are sorted in ascending order by states.id and displayed as they are.
 The code is not executed when imported.
 """
-from check_MySQL import check_mysql
+from Utils.check_MySQL import check_mysql
 import MySQLdb
 import sys
 

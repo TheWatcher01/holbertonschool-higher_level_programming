@@ -18,9 +18,13 @@ def setup_engine(username, password, database):
     Function to setup the SQLAlchemy engine.
     """
 
-    # Create an engine
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'
-                           .format(username, password, database),
-                           pool_pre_ping=True)
+    try:
+        # Create an engine
+        engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'
+                               .format(username, password, database),
+                               pool_pre_ping=True)
+    except Exception as e:
+        print("Error while creating the engine: ", e)
+        return None
 
     return engine

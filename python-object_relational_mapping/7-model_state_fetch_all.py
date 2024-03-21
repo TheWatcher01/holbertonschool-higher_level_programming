@@ -12,10 +12,10 @@ The code is not executed when imported.
 """
 
 # Import necessary modules
-from check_MySQL import check_mysql
+from Utils.check_MySQL import check_mysql
+from Utils.engine_setup import setup_engine
 from model_state import Base, State
 from sqlalchemy.orm import sessionmaker
-from engine_setup import setup_engine
 import sys
 
 
