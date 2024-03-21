@@ -1,14 +1,20 @@
 #!/usr/bin/python3
-'''
-Contains the class def of City
-'''
+"""
+Module: relationship_city.py
+Author: TheWatcher01
+Date: 21/03/2024
+Description:
+Contains the class definition of City and an instance Base.
+"""
 
 from sqlalchemy import Column, Integer, String, ForeignKey
 from relationship_state import Base, State
 
 
 class City(Base):
-    '''Class def for City'''
+    """
+    Class definition for City.
+    """
 
     __tablename__ = 'cities'
     id = Column(Integer,
@@ -23,5 +29,7 @@ class City(Base):
                       nullable=False)
 
     def __str__(self):
-        '''str form of the class'''
+        """
+        String representation of the class.
+        """
         return "{}: {}".format(self.id, self.name)

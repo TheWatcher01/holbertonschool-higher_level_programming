@@ -1,8 +1,11 @@
 #!/usr/bin/python3
-'''
-Contains the class def of States and an instance
-Base = declarative_base()
-'''
+"""
+Module: relationship_state.py
+Author: TheWatcher01
+Date: 21/03/2024
+Description:
+Contains the class definition of States and an instance Base.
+"""
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
@@ -12,7 +15,9 @@ Base = declarative_base()
 
 
 class State(Base):
-    '''Class def for State'''
+    """
+    Class definition for State.
+    """
 
     __tablename__ = 'states'
     id = Column(Integer,
@@ -23,8 +28,11 @@ class State(Base):
     name = Column(String(128),
                   nullable=False)
     cities = relationship("City",
-                          cascade="all")
+                          backref="state",
+                          cascade="all, delete")
 
     def __str__(self):
-        '''str form of the class'''
+        """
+        String representation of the class.
+        """
         return "{}: {}".format(self.id, self.name)
