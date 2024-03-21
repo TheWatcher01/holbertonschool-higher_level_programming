@@ -7,14 +7,16 @@ Description:
 Script lists all states with specific name from database hbtn_0e_0_usa.
 It takes 4 arguments: mysql username, mysql password, database name,
 and the state name to be searched.
-Uses MySQLdb to connect to MySQL server running on localhost at port 3306.
+Uses SQLAlchemy to connect to MySQL server running on localhost at port 3306.
 Results are sorted in ascending order by states.id and displayed as they are.
 The code is not executed when imported.
 """
 
 # Import necessary modules
 from Utils.check_MySQL import check_mysql
-import MySQLdb
+from Utils.engine_setup import setup_engine
+from Utils.session_setup import setup_session
+from model_state import Base, State
 import sys
 
 
@@ -36,35 +38,35 @@ def filter_states():
     state_name_searched = sys.argv[4]
 
     try:
-        # Connect to the database
-        db = MySQLdb.connect(host="localhost",
-                             user=username,
-                             passwd=password,
-                             db=database,
-                             port=3306)
+        # Create an engine
+        engine = setup_engine(username, password, database)
 
-        # Create a cursor object
-        cur = db.cursor()
+        # Check if engine was successfully created
+        if engine is None:
+            return
 
-        # Execute the SQL query
-        query = ("SELECT * FROM states WHERE name LIKE BINARY '{}' "
-                 "ORDER BY id ASC".format(state_name_searched))
-        cur.execute(query)
+        # Create a Session
+        session = setup_session(engine)
 
-        # Retrieve and display the results
-        for row in cur.fetchall():
-            print(row)
+        # Query the database for the State object with the given name
+        states = session.query(State).filter(
+            State.name == state_name_searched).order_by(State.id)
 
-    except MySQLdb.Error as e:
-        # Print any error that occurs
+        # Check if any State objects were found
+        if states.count() > 0:
+            for state in states:
+                print("{}: {}".format(state.id, state.name))
+        else:
+            print("Not found")
+
+    except Exception as e:
+        # Print the full exception
         print(e)
 
     finally:
-        # Close the connection and cursor
-        if cur:
-            cur.close()
-        if db:
-            db.close()
+        # Close the Session
+        if session:
+            session.close()
 
 
 # Ensure the script is not executed when imported

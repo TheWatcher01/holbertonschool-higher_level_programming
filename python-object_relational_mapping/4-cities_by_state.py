@@ -6,14 +6,17 @@ Date: 21/03/2024
 Description:
 Script lists all cities from the database hbtn_0e_4_usa.
 It takes 3 arguments: mysql username, mysql password and database name.
-Uses MySQLdb to connect to MySQL server running on localhost at port 3306.
+Uses SQLAlchemy to connect to MySQL server running on localhost at port 3306.
 Results are sorted in ascending order by cities.id and displayed as they are.
 The code is not executed when imported.
 """
 
 # Import necessary modules
 from Utils.check_MySQL import check_mysql
-import MySQLdb
+from Utils.engine_setup import setup_engine
+from Utils.session_setup import setup_session
+from model_state import Base, State
+from model_city import City
 import sys
 
 
@@ -34,36 +37,34 @@ def list_cities():
     database = sys.argv[3]
 
     try:
-        # Connect to the database
-        db = MySQLdb.connect(host="localhost",
-                             user=username,
-                             passwd=password,
-                             db=database,
-                             port=3306)
+        # Create an engine
+        engine = setup_engine(username, password, database)
 
-        # Create a cursor object
-        cur = db.cursor()
+        # Check if engine was successfully created
+        if engine is None:
+            return
 
-        # Execute the SQL query
-        cur.execute("""SELECT cities.id, cities.name, states.name
-                       FROM cities
-                       JOIN states ON cities.state_id = states.id
-                       ORDER BY cities.id ASC""")
+        # Create a Session
+        session = setup_session(engine)
 
-        # Retrieve and display the results
-        for row in cur.fetchall():
-            print(row)
+        # Query the database for all cities and their states
+        cities = session.query(City, State).join(State).order_by(City.id)
 
-    except MySQLdb.Error as e:
+        # Check if any City objects were found
+        if cities.count() > 0:
+            for city, state in cities:
+                print("{}: ({}) {}".format(state.name, city.id, city.name))
+        else:
+            print("Not found")
+
+    except Exception as e:
         # Print the full exception
         print(e)
 
     finally:
-        # Close the connection and cursor
-        if cur:
-            cur.close()
-        if db:
-            db.close()
+        # Close the Session
+        if session:
+            session.close()
 
 
 # Ensure the script is not executed when imported
