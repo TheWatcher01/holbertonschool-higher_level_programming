@@ -51,12 +51,9 @@ def list_states_with_a():
         states = session.query(State).filter(State.name.contains('a'))\
             .order_by(State.id)
 
-        # Check if any State objects were found
-        if states.count() > 0:
-            for state in states:
-                print("{}: {}".format(state.id, state.name))
-        else:
-            print("Nothing")
+        # Print all State objects that contain the letter 'a'
+        for state in states:
+            print("{}: {}".format(state.id, state.name))
 
     except Exception as e:
         # Print the full exception
