@@ -25,8 +25,8 @@ def filter_states():
 
     # Check if the correct number of arguments are provided
     if len(sys.argv) != 5:
-        print("Usage: ./2-my_filter_states.py {} {} {} {}".format(
-            "username", "password", "database", "state_name_searched"))
+        print("Usage: ./2-my_filter_states.py username password "
+              "database state_name_searched")
         return
 
     # Retrieve the arguments passed to the script
@@ -47,7 +47,7 @@ def filter_states():
         cur = db.cursor()
 
         # Execute the SQL query
-        query = ("SELECT * FROM states WHERE name = '{}' "
+        query = ("SELECT * FROM states WHERE name LIKE BINARY '{}' "
                  "ORDER BY id ASC".format(state_name_searched))
         cur.execute(query)
 
@@ -57,7 +57,7 @@ def filter_states():
 
     except MySQLdb.Error as e:
         # Print any error that occurs
-        print("Error: {}".format(str(e)))
+        print(f"Error: {str(e)}")
 
     finally:
         # Close the connection and cursor
