@@ -70,3 +70,6 @@ def list_states_with_a():
 if __name__ == "__main__":
     check_mysql()
     list_states_with_a()
+
+# Comprendre pourquoi ça ne passe pas avec l'implémentaion de...
+# ...la fonction session_setup
