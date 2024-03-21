@@ -41,7 +41,7 @@ def filter_states():
 
         # Execute the SQL query
         cur.execute("SELECT * FROM states "
-                    "WHERE name LIKE 'N%' ORDER BY id ASC")
+                    "WHERE name LIKE BINARY 'N%' ORDER BY id ASC")
 
         # Retrieve and display the results
         for row in cur.fetchall():
