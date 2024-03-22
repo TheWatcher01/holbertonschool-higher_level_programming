@@ -4,7 +4,7 @@ This repository contains my work and projects as a Software Engineering student 
 
 The projects listed below cover a wide range of topics, from basic Python programming, data structures, object-oriented programming, to SQL queries and object-relational mapping. Each project is a step towards mastering these technologies and becoming a proficient software engineer.
 
-## Projects:
+## Projects
 
 * [Python - Hello, World](./python-hello_world)
 * [Python - if/else, loops, functions](./python-if_else_loops_functions)
@@ -23,16 +23,17 @@ The projects listed below cover a wide range of topics, from basic Python progra
 * [SQL - More Queries](./SQL_more_queries)
 * [Python - Object Relational Mapping](./python-object_relational_mapping)
 
-## Author:
+## Author
 
-* **[Teddy Deberdt](https://www.linkedin.com/in/teddy-deberdt/)** <[TheWatcher01](https://github.com/TheWatcher01)>**
+* **[Teddy Deberdt on LinkedIn](https://www.linkedin.com/in/teddy-deberdt/)** AKA **[TheWatcher01 on GitHub](https://github.com/TheWatcher01)**
 
-## Acknowledgements :pray:
+## Acknowledgements
 
 I would like to express my gratitude to Holberton School Toulouse for providing an engaging and challenging software engineering program. The project-based and peer learning approach has greatly enhanced my technical skills and understanding of the software development process. For more information about the program, visit [this link](https://www.holbertonschool.fr/).
 
 <p align="center">
   <img src="https://assets-global.website-files.com/64107f65f30b69371e3d6bfa/65c6179aa44b63fa4f31e7ad_Holberton-Logo-Cherry.svg"
     alt="Holberton School Logo"
+    width="400"
   >
 </p>
